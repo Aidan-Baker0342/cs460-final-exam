@@ -72,29 +72,30 @@
 > Do not copy the invariant text from the spec.
 
 - **For nodes already finalized (in S):**
-  _Your answer here._
+  - The distnaces are finished and optimized, for the nodes found the shortest min cost is found.
 
 - **For nodes not yet finalized (not in S):**
-  _Your answer here._
+  - Nodes that have not yet been optimized for their route, Dijkstra's hasn't fully optimized.
 
 ### Part 3b: Why Each Phase Holds
 
 > One to two bullets per phase. Maintenance must mention nonnegative edge weights.
 
 - **Initialization : why the invariant holds before iteration 1:**
-  _Your answer here._
+  - At the start the source dist is 0 and every node is set to infinity, so no other paths have been discovered.
 
 - **Maintenance : why finalizing the min-dist node is always correct:**
-  _Your answer here._
+  - The node with smallest curr_distance cannot be imporved on since all edge weights are nonnegative. 
+  - Later path to a past node would only increase the weight not lessen.
 
 - **Termination : what the invariant guarantees when the algorithm ends:**
-  _Your answer here._
+  - At finish every reachable node has its shortest path from the source.
 
 ### Part 3c: Why This Matters for the Route Planner
 
 > One sentence connecting correct distances to correct routing decisions.
 
-_Your answer here._
+The correct shortest path distances means the algorithmn can compare and choice the optimal route with the lowest total cost.
 
 ---
 
@@ -105,17 +106,17 @@ _Your answer here._
 > State the failure mode. Then give a concrete counter-example using specific node names
 > or costs (you may use the illustration example from the spec). Three to five bullets.
 
-- **The failure mode:** _Your answer here._
-- **Counter-example setup:** _Your answer here._
-- **What greedy picks:** _Your answer here._
-- **What optimal picks:** _Your answer here._
-- **Why greedy loses:** _Your answer here._
+- **The failure mode:** Greedy strategy always fails since it always chooses shortest path to the next relic, but this can lead to a less optimial total final cost since it doesn't see future path costs. 
+- **Counter-example setup:** Start at S the cost to A is 1 and to B is 2, from A to B costs 4, and from B to A cost 1.
+- **What greedy picks:** Greedy strategy chooses A first since it has a smaller cost, then picks A to B with a cost of 4 ending in a total final cost of 5.
+- **What optimal picks:** The optimal strategy chooses B first at cost of 2 then from B to A at cost 1, total final cost is 3.
+- **Why greedy loses:** Since Greedy chooses the most optimal path each step it can lead to a less optimal final path, shown by Greedy chooses A first at 1 but ending with a final cost of 5 with a more optimal final path with B leading to a final cost of 3.
 
 ### What the Algorithm Must Explore
 
 > One bullet. Must use the word "order."
 
-- _Your answer here._
+- The algorithmn must explore all possible orders of relic nodes to determine path has the minimum total cost.
 
 ---
 
