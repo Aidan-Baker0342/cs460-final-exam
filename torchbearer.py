@@ -315,4 +315,22 @@ def _run_tests():
 
 
 if __name__ == "__main__":
-    _run_tests()
+    # _run_tests()
+
+    # TEMP TESTS
+
+    graph = {
+        'S': [('B', 1), ('C', 2)],
+        'B': [('T', 1)],
+        'C': [('T', 1)],
+        'T': []
+    }
+
+    print("Testing select_sources:")
+    print(select_sources('S', ['B', 'C'], 'T'))
+
+    print("\nTesting run_dijkstra:")
+    print(run_dijkstra(graph, 'S'))
+
+    print("\nTesting precompute_distances:")
+    print(precompute_distances(graph, 'S', ['B', 'C'], 'T'))
