@@ -1,7 +1,7 @@
 # The Torchbearer
 
-**Student Name:** ___________________________
-**Student ID:** ___________________________
+**Student Name:** Aidan Baker
+**Student ID:** 826601445
 **Course:** CS 460 – Algorithms | Spring 2026
 
 > This README is your project documentation. Write it the way a developer would document
@@ -17,13 +17,13 @@
 > per question. Each bullet should be 1-2 sentences max.
 
 - **Why a single shortest-path run from S is not enough:**
-  _Your answer here._
+  This doesn't work since running this would lead to relics being missed since the problem require visiting all relic nodes not just reach the end in the shortest path. 
 
 - **What decision remains after all inter-location costs are known:**
-  _Your answer here._
+  The decision left is what order the relics should be visits to result in the shortest route.
 
 - **Why this requires a search over orders (one sentence):**
-  _Your answer here._
+  It requires search over orders since we compare all possible routes and choose the shortest path for minimal cost.
 
 ---
 
@@ -35,8 +35,8 @@
 
 | Source Node Type | Why it is a source |
 |---|---|
-| _node type_ | _one-line reason_ |
-| _node type_ | _one-line reason_ |
+| Spawn | We start here and shortest path to all relics |
+| Relics | Shortest path from relic to relic and relics to exit |
 
 ### Part 2b: Distance Storage
 
@@ -44,20 +44,20 @@
 
 | Property | Your answer |
 |---|---|
-| Data structure name | |
-| What the keys represent | |
-| What the values represent | |
-| Lookup time complexity | |
-| Why O(1) lookup is possible | |
+| Data structure name | Dictionary |
+| What the keys represent | GRaph nodes |
+| What the values represent | Min cost from starting node to other nodes |
+| Lookup time complexity | O(1) |
+| Why O(1) lookup is possible | Python dictionaries use hashing |
 
 ### Part 2c: Precomputation Complexity
 
 > State the total complexity and show the arithmetic. Two to three lines max.
 
-- **Number of Dijkstra runs:** _your answer_
-- **Cost per run:** _your answer_
-- **Total complexity:** _your answer_
-- **Justification (one line):** _your answer_
+- **Number of Dijkstra runs:** k + 1
+- **Cost per run:** O(m log n)
+- **Total complexity:** O((k + 1) * (m log n))
+- **Justification (one line):** We run it once at the start and again for each k relic.
 
 ---
 
