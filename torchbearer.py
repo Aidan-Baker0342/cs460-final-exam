@@ -139,15 +139,25 @@ def precompute_distances(graph, spawn, relics, exit_node):
 
 def dijkstra_invariant_check():
     """
-    Returns
-    -------
-    str
-        Your Part 3 README answers, written as a string.
-        Must match what you wrote in README Part 3.
-
-    TODO
+    I added all sections from README Part 3, not sure if this is right.
     """
-    return "TODO"
+    return (
+        "Part 3a: What the Invariant Means"
+        "**For nodes already finalized (in S):**"
+        "The distnaces are finished and optimized, for the nodes found the shortest min cost is found."
+        "**For nodes not yet finalized (not in S):**"
+        "Nodes that have not yet been optimized for their route, Dijkstra's hasn't fully optimized."
+        "Part 3b: Why Each Phase Holds"
+        "**Initialization : why the invariant holds before iteration 1:**"
+        "At the start the source dist is 0 and every node is set to infinity, so no other paths have been discovered."
+        "**Maintenance : why finalizing the min-dist node is always correct:**"
+        "The node with smallest curr_distance cannot be imporved on since all edge weights are nonnegative."
+        "Later path to a past node would only increase the weight not lessen."
+        "**Termination : what the invariant guarantees when the algorithm ends:**"
+        "At finish every reachable node has its shortest path from the source."
+        "Part 3c: Why This Matters for the Route Planner"
+        "The correct shortest path distances means the algorithmn can compare and choice the optimal route with the lowest total cost."
+  )
 
 
 # =============================================================================
