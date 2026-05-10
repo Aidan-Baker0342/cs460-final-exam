@@ -2,8 +2,8 @@
 CS 460 – Algorithms: Final Programming Assignment
 The Torchbearer
 
-Student Name: ___________________________
-Student ID:   ___________________________
+Student Name: Aidan Baker
+Student ID:   826601445
 
 INSTRUCTIONS
 ------------
@@ -26,15 +26,16 @@ import heapq
 
 def explain_problem():
     """
-    Returns
-    -------
-    str
-        Your Part 1 README answers, written as a string.
-        Must match what you wrote in README Part 1.
-
-    TODO
+    I added all sections from README Part 1, not sure if this is right.
     """
-    return "TODO"
+    return (
+        "**Why a single shortest-path run from S is not enough:**"
+        "This doesn't work since running this would lead to relics being missed since the problem require visiting all relic nodes not just reach the end in the shortest path."
+        "**What decision remains after all inter-location costs are known:**"
+        "The decision left is what order the relics should be visits to result in the shortest route."
+        "**Why this requires a search over orders (one sentence):**"
+        "It requires search over orders since we compare all possible routes and choose the shortest path for minimal cost."
+  )
 
 
 # =============================================================================
@@ -53,10 +54,11 @@ def select_sources(spawn, relics, exit_node):
     -------
     list[node]
         No duplicates. Order does not matter.
-
-    TODO
     """
-    pass
+
+    # exit node is not needed
+    sources = [spawn] + relics
+    return list(set(sources))
 
 
 def run_dijkstra(graph, source):
@@ -72,10 +74,36 @@ def run_dijkstra(graph, source):
     dict[node, float]
         Minimum cost from source to every node in graph.
         Unreachable nodes map to float('inf').
-
-    TODO
     """
-    pass
+    # Initialize distances to infinity
+    dist = {}
+    for node in graph:
+        dist[node] = float('inf')
+
+    dist[source] = 0
+
+    # Make a Priority queue 
+    pq = [(0, source)]
+
+    # process nodes 
+    while pq:
+        curr_cost, curr_node = heapq.heappop(pq)
+
+        # If the cost is greater than the current distance, skip
+        if curr_cost > dist[curr_node]:
+            continue
+
+        # check all neighbors of the current node
+        for neighbor, edge_cost in graph[curr_node]:
+            new_cost = curr_cost + edge_cost
+
+            # If a shorter path is found update dist and add to pq
+            if new_cost < dist[neighbor]:
+                dist[neighbor] = new_cost
+                heapq.heappush(pq, (new_cost, neighbor))
+
+    #return the distance table
+    return dist
 
 
 def precompute_distances(graph, spawn, relics, exit_node):
