@@ -128,7 +128,7 @@ def precompute_distances(graph, spawn, relics, exit_node):
     dist_table = {}
 
     for source in sources:
-        run_dijkstra(graph, source)
+        dist_table[source] = run_dijkstra(graph, source) # dumb error here, forgot to assign the result of run_dijkstra to dist_table[source]
 
     return dist_table
 
@@ -166,15 +166,24 @@ def dijkstra_invariant_check():
 
 def explain_search():
     """
-    Returns
-    -------
-    str
-        Your Part 4 README answers, written as a string.
-        Must match what you wrote in README Part 4.
-
-    TODO
+    I added all sections from README Part 4, not sure if this is right.
     """
-    return "TODO"
+    return (
+        "Part 4: Search Design"
+        "Why Greedy Fails"
+        "**The failure mode:**"
+        "Greedy strategy always fails since it always chooses shortest path to the next relic, but this can lead to a less optimial total final cost since it doesn't see future path costs."
+        "**Counter-example setup:**"
+        "Start at S the cost to A is 1 and to B is 2, from A to B costs 4, and from B to A cost 1."
+        "**What greedy picks:**"
+        "Greedy strategy chooses A first since it has a smaller cost, then picks A to B with a cost of 4 ending in a total final cost of 5."
+        "**What optimal picks:**"
+        "The optimal strategy chooses B first at cost of 2 then from B to A at cost 1, total final cost is 3."
+        "**Why greedy loses:**"
+        "Since Greedy chooses the most optimal path each step it can lead to a less optimal final path, shown by Greedy chooses A first at 1 but ending with a final cost of 5 with a more optimal final path with B leading to a final cost of 3."
+        "What the Algorithm Must Explore"
+        "The algorithmn must explore all possible orders of relic nodes to determine path has the minimum total cost."
+    )
 
 
 # =============================================================================
