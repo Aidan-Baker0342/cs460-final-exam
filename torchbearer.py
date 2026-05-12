@@ -121,7 +121,6 @@ def precompute_distances(graph, spawn, relics, exit_node):
         Nested structure supporting dist_table[u][v] lookups
         for every source u your design requires.
 
-    TODO
     """
     sources = select_sources(spawn, relics, exit_node)
 
@@ -208,9 +207,14 @@ def find_optimal_route(dist_table, spawn, relics, exit_node):
         (minimum_fuel_cost, ordered_relic_list)
         Returns (float('inf'), []) if no valid route exists.
 
-    TODO
     """
-    pass
+    best = [float('inf'), []]  # Mutable container for best solution found so far
+
+    # Start search, initial cost is 0 and no relics visited yet
+    _explore(dist_table, spawn, set(relics), [], 0, exit_node, best)
+
+    # best[0] is the minimum fuel cost, best[1] is the ordered relic list
+    return best[0], best[1]
 
 
 def _explore(dist_table, current_loc, relics_remaining, relics_visited_order,
@@ -242,7 +246,38 @@ def _explore(dist_table, current_loc, relics_remaining, relics_visited_order,
     explaining why it is safe (cannot skip the optimal solution).
     This comment is graded.
     """
-    pass
+    # if cost so far is worse, stop and continue
+    if cost_so_far >= best[0]:
+        # cost cant be imporved
+        return
+
+    # Base case - if no relics remaining, check cost to exit
+    if not relics_remaining:
+        total_cost = cost_so_far + dist_table[current_loc][exit_node] # add cost to exit
+       
+        # Update best if this route is better
+        if total_cost < best[0]:
+            best[0] = total_cost
+            best[1] = relics_visited_order.copy()
+        return
+    
+    # Recursive case - try visiting each remaining relic
+    for relic in relics_remaining:
+        travel_cost = dist_table[current_loc][relic] # cost to next relic
+
+        # unreachable relic, skip
+
+        # Add relic to path
+
+        # call explore to search
+        _explore(dist_table, relic, ,  exit_node, best)
+
+        # backtrack - remove relic and try another one
+        relics_visited_order.pop() # remove last visited relic
+        
+        
+
+        
 
 
 # =============================================================================
