@@ -129,9 +129,9 @@ The correct shortest path distances means the algorithmn can compare and choice 
 
 | Component | Variable name in code | Data type | Description |
 |---|---|---|---|
-| Current location | | | |
-| Relics already collected | | | |
-| Fuel cost so far | | | |
+| Current location | current_loc | node | The node that we are currently searching |
+| Relics already collected | relics_visited_order | list[node] | The collected relics so far stored as a list in the order visited|
+| Fuel cost so far | cost_so_far | float | The total fuel cost so far |
 
 ### Part 5b: Data Structure for Visited Relics
 
@@ -139,18 +139,18 @@ The correct shortest path distances means the algorithmn can compare and choice 
 
 | Property | Your answer |
 |---|---|
-| Data structure chosen | |
-| Operation: check if relic already collected | Time complexity: |
-| Operation: mark a relic as collected | Time complexity: |
-| Operation: unmark a relic (backtrack) | Time complexity: |
-| Why this structure fits | |
+| Data structure chosen | List |
+| Operation: check if relic already collected | Time complexity: O(1)|
+| Operation: mark a relic as collected | Time complexity: O(1)|
+| Operation: unmark a relic (backtrack) | Time complexity: O(1)|
+| Why this structure fits | A list hold the relics visited order which allows for backtracking|
 
 ### Part 5c: Worst-Case Search Space
 
 > Two bullets.
 
-- **Worst-case number of orders considered:** _Your answer (in terms of k)._
-- **Why:** _One-line justification._
+- **Worst-case number of orders considered:** k!
+- **Why:** Since the algorithmn has to try all possible order of relics.
 
 ---
 
@@ -160,23 +160,24 @@ The correct shortest path distances means the algorithmn can compare and choice 
 
 > Three bullets.
 
-- **What is tracked:** _Your answer here._
-- **When it is used:** _Your answer here._
-- **What it allows the algorithm to skip:** _Your answer here._
+- **What is tracked:** The best complete route with its total fuel cost and relic order.
+- **When it is used:** Checked before continue deeper.
+- **What it allows the algorithm to skip:** It skips paths whose current cost is already greater than or equal to the best route.
 
 ### Part 6b: Lower Bound Estimation
 
 > Three bullets.
 
-- **What information is available at the current state:** _Your answer here._
-- **What the lower bound accounts for:** _Your answer here._
-- **Why it never overestimates:** _Your answer here._
+- **What information is available at the current state:** The current location, remainig relics, and total fuel cost so far.
+- **What the lower bound accounts for:** It uses the current cost as the min for possible routes to continue.
+- **Why it never overestimates:** since all edge weights are nonnegtive, so more movements only increase cost.
 
 ### Part 6c: Pruning Correctness
 
 > One to two bullets. Explain why pruning is safe.
 
-- _Your answer here._
+-  Its safe since the current cost is already greater than or equal to the best route known
+-  Continueing cannot be more optimized
 
 ---
 
@@ -184,4 +185,6 @@ The correct shortest path distances means the algorithmn can compare and choice 
 
 > Bullet list. If none beyond lecture notes, write that.
 
-- _Your references here._
+- CS 460 lecture notes on Dijkstra’s algorithm and backtracking
+- Python documentation for heapq
+- GeeksforGeeks – Dijkstra’s Algorithm explanation and examples
