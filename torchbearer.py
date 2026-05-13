@@ -239,12 +239,15 @@ def _explore(dist_table, current_loc, relics_remaining, relics_visited_order,
     None
         Updates best in place.
 
-    TODO
     Implement: base case, pruning, recursive case, backtracking.
 
     REQUIRED: Add a 1-2 sentence comment near your pruning condition
     explaining why it is safe (cannot skip the optimal solution).
     This comment is graded.
+
+    All edge cases being nonnegative allows pruning to be safe.
+    So if a path has already exceeded the best cost found so far, then any further exploration 
+    down that path cannot yield a better solution.
     """
     # if cost so far is worse, stop and continue
     if cost_so_far >= best[0]:
@@ -266,11 +269,18 @@ def _explore(dist_table, current_loc, relics_remaining, relics_visited_order,
         travel_cost = dist_table[current_loc][relic] # cost to next relic
 
         # unreachable relic, skip
+        if travel_cost == float('inf'):
+            continue
 
         # Add relic to path
+        relics_visited_order.append(relic)
+
+        # make a copy of relics_remaining and remove the current relic
+        new_relics_remaining = relics_remaining.copy()
+        new_relics_remaining.remove(relic)
 
         # call explore to search
-        _explore(dist_table, relic, ,  exit_node, best)
+        _explore(dist_table, relic, new_relics_remaining, relics_visited_order, cost_so_far + travel_cost, exit_node, best)
 
         # backtrack - remove relic and try another one
         relics_visited_order.pop() # remove last visited relic
@@ -369,22 +379,4 @@ def _run_tests():
 
 
 if __name__ == "__main__":
-    # _run_tests()
-
-    # TEMP TESTS
-
-    graph = {
-        'S': [('B', 1), ('C', 2)],
-        'B': [('T', 1)],
-        'C': [('T', 1)],
-        'T': []
-    }
-
-    print("Testing select_sources:")
-    print(select_sources('S', ['B', 'C'], 'T'))
-
-    print("\nTesting run_dijkstra:")
-    print(run_dijkstra(graph, 'S'))
-
-    print("\nTesting precompute_distances:")
-    print(precompute_distances(graph, 'S', ['B', 'C'], 'T'))
+    _run_tests()
